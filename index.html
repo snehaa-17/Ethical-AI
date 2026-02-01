@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human-Centric AI | Digital Phenotype Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Simple Icons or just CSS for indicators -->
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <!-- Banner -->
+        <div class="research-banner">
+            <span class="banner-icon">🔬</span>
+            <span class="banner-text"><strong>Privacy-Preserving Research Prototype</strong>: No real user data is
+                collected. All signals are simulated.</span>
+        </div>
+
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>Human-Centric AI</h1>
+                    <span class="subtitle">Early Risk Awareness using Passive Digital Phenotypes</span>
+                </div>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="btnModeManual" onclick="setMode('manual')">Manual
+                        Override</button>
+                    <button class="mode-btn" id="btnModeAuto" onclick="setMode('auto')">Auto-Simulation</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid-layout">
+
+            <!-- Left: Signals (Manual Control or Passive Monitor) -->
+            <section class="panel controls-panel">
+                <div class="panel-header">
+                    <h2>Passive Digital Signals</h2>
+                    <span class="badge" id="signalBadge">Simulation Active</span>
+                </div>
+
+                <div id="manualControls" class="controls-content">
+                    <p class="instruction-text">Adjust sliders to simulate specific behavioral patterns (Research Mode).
+                    </p>
+
+                    <form id="simulationForm">
+                        <div class="control-group">
+                            <label>Avg Daily Screen Time</label>
+                            <div class="slider-row">
+                                <input type="range" id="avg_daily_screen_time" min="0" max="18" step="0.5" value="6.0">
+                                <span class="val" id="val_screen_time">6.0h</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Night Usage Ratio (0-6AM)</label>
+                            <div class="slider-row">
+                                <input type="range" id="night_usage_ratio" min="0" max="1" step="0.1" value="0.2">
+                                <span class="val" id="val_night_usage">20%</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Sleep Irregularity (Passive)</label>
+                            <div class="slider-row">
+                                <input type="range" id="sleep_irregularity_score" min="0" max="1" step="0.1"
+                                    value="0.2">
+                                <span class="val" id="val_sleep">0.2</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Social Withdrawal (Passive)</label>
+                            <div class="slider-row">
+                                <input type="range" id="social_app_withdrawal_score" min="0" max="1" step="0.1"
+                                    value="0.3">
+                                <span class="val" id="val_withdrawal">0.3</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Typing Speed Variance</label>
+                            <div class="slider-row">
+                                <input type="range" id="typing_speed_variance" min="10" max="200" step="10" value="50">
+                                <span class="val" id="val_typing">50ms</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>App Diversity (Count)</label>
+                            <div class="slider-row">
+                                <input type="range" id="app_usage_diversity" min="1" max="30" step="1" value="12">
+                                <span class="val" id="val_app_div">12 apps</span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <button id="analyzeBtn" class="action-btn">Run Single Analysis</button>
+                </div>
+
+                <div id="autoControls" class="controls-content hidden">
+                    <div class="auto-animation">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay"></div>
+                        <div class="pulse-center"></div>
+                    </div>
+                    <p class="auto-status">Processing Longitudinal Stream...</p>
+                    <p class="auto-desc">Simulating daily passive data collection. Watch how risk evolves over time.</p>
+                    <div class="feature-echo">
+                        <h4>Current Day: <span id="dayDisplay">0</span></h4>
+                        <div id="echoFeatures" class="echo-list">
+                            <!-- JS fills this -->
+                        </div>
+                    </div>
+
+                    <button id="resetBtn" class="secondary-btn">Reset Simulation</button>
+                </div>
+            </section>
+
+            <!-- Right: Insights & Explainability -->
+            <section class="panel results-panel">
+                <div id="emptyState" class="empty-state">
+                    <h3>Ready to Simulate</h3>
+                    <p>Select a mode to begin analysis.</p>
+                </div>
+
+                <div id="resultContent" class="hidden">
+                    <!-- Status Header -->
+                    <div class="result-header">
+                        <div class="risk-indicator">
+                            <span class="label">Current Status</span>
+                            <h2 id="riskLabel">--</h2>
+                        </div>
+                        <div class="meta-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Confidence</span>
+                                <span class="metric-val" id="confVal">--%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Trend</span>
+                                <span class="metric-val" id="trendVal">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Explanation -->
+                    <div class="card explanation-card">
+                        <h3>Analysis</h3>
+                        <div id="explanationText" class="text-content"></div>
+                    </div>
+
+                    <!-- "What If" Counterfactual -->
+                    <div class="card suggestion-card">
+                        <div class="card-icon">💡</div>
+                        <div class="card-body">
+                            <h4>Potential Improvement</h4>
+                            <p id="counterfactualText">...</p>
+                        </div>
+                    </div>
+
+                    <!-- Visuals -->
+                    <div class="card visual-card">
+                        <h3>Contributing Factors</h3>
+                        <div id="barsContainer" class="bars-container"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
